@@ -34,3 +34,9 @@ CREATE TABLE Boletim (
     FOREIGN KEY (RA) REFERENCES Aluno (RA),
     FOREIGN KEY (CodDisc) REFERENCES Disciplina (CodDisc)
 );
+
+INSERT INTO Aluno VALUES (
+('123456789' , '123456789', 'Eduardo Costa'),
+('987654321', '987654321', 'Jose Carlos')
+);
+
