@@ -1,9 +1,10 @@
+DROP DATABASE IF EXISTS SistemaAcademico;
 CREATE DATABASE SistemaAcademico;
 USE SistemaAcademico;
 
 CREATE TABLE Curso (
 	CodCurso CHAR (3),
-    Nome VARCHAR (20),
+    Nome VARCHAR (30),
     Mensalidade NUMERIC (10, 2),
     PRIMARY KEY (CodCurso)
 );
@@ -18,21 +19,21 @@ CREATE TABLE Aluno (
 );
 
 CREATE TABLE Disciplinas (
-	CodDisc INT,
+	CodDisc CHAR (5),
     Nome CHAR (30),
-    NroCred	INT (11),
     CodCurso CHAR (3),
+    NroCred	CHAR (5),
 	PRIMARY KEY (CodDisc),
 	FOREIGN KEY (CodCurso) REFERENCES Curso (CodCurso)
 );
 
 CREATE TABLE Boletim (
-	RA INT,
-    CodDisc INT(11),
+	RA CHAR (9),
+    CodDisc CHAR (5),
 	Nota DECIMAL (10, 2),
     PRIMARY KEY (RA, CodDisc),
     FOREIGN KEY (RA) REFERENCES Aluno (RA),
-    FOREIGN KEY (CodDisc) REFERENCES Disciplina (CodDisc)
+    FOREIGN KEY (CodDisc) REFERENCES Disciplinas (CodDisc)
 );
 
 INSERT INTO Curso VALUES ('AS', 'ANALISE E DESEN SIS', 1000);
@@ -47,12 +48,12 @@ INSERT INTO Aluno VALUES ('321', '32111', 'MARCIA RIBEIRO', 'CC');
 INSERT INTO Aluno VALUES ('661', '66123', 'JUSSARA MARANDOLA', 'SI');
 INSERT INTO Aluno VALUES ('765', '76512', 'WALTER RODRIGUES', 'SI');
 
-INSERT INTO Disciplina VALUES ('BD', 'BANCO DE DADOS', 'CC', 4);
-INSERT INTO Disciplina VALUES ('BDA', 'BANCO DE DADOS AVANCADOS', 'CC', 6);
-INSERT INTO Disciplina VALUES ('BDOO', 'BANCO DE DADOS E OBJETOS', 'SI', 4);
-INSERT INTO Disciplina VALUES ('BDS', 'SISTEMAS DE BANCO DE DADOS', 'AS', 4);
-INSERT INTO Disciplina VALUES ('DBD', 'DESENVOLVIMENTO BANCO DE DADOS', 'SI', 6);
-INSERT INTO Disciplina VALUES ('IBD', 'INTRODUCAO A BANCO DE DADOS', 'AS', 2);
+INSERT INTO Disciplinas VALUES ('BD', 'BANCO DE DADOS', 'CC', 4);
+INSERT INTO Disciplinas VALUES ('BDA', 'BANCO DE DADOS AVANCADOS', 'CC', 6);
+INSERT INTO Disciplinas VALUES ('BDOO', 'BANCO DE DADOS E OBJETOS', 'SI', 4);
+INSERT INTO Disciplinas VALUES ('BDS', 'SISTEMAS DE BANCO DE DADOS', 'AS', 4);
+INSERT INTO Disciplinas VALUES ('DBD', 'DESENVOLVIMENTO BANCO DE DADOS', 'SI', 6);
+INSERT INTO Disciplinas VALUES ('IBD', 'INTRODUCAO A BANCO DE DADOS', 'AS', 2);
 
 INSERT INTO Boletim VALUES ('123', 'BDS', 10);
 INSERT INTO Boletim VALUES ('212', 'IBD', 7.5);
@@ -60,4 +61,9 @@ INSERT INTO Boletim VALUES ('231', 'BD', 7.5);
 INSERT INTO Boletim VALUES ('231', 'BDA', 9.6);
 INSERT INTO Boletim VALUES ('661', 'DBD', 8);
 INSERT INTO Boletim VALUES ('765', 'DBD', 6);
+
+SELECT Nome, COUNT(*) FROM Disciplinas GROUP BY Nome;
+SELECT Nome, COUNT(*) FROM Aluno GROUP BY Nome;
+SELECT Nome FROM Curso;
+
 
